@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const baseURL = "https://school-transaction-api.onrender.com"
+const baseURL = "https://school-transaction-api.onrender.com";
 
 // Thunk to fetch transactions by page
 export const fetchTransactions = createAsyncThunk(
@@ -20,7 +20,7 @@ export const fetchTransactionsBySchoolId = createAsyncThunk(
   "transactions/fetchTransactionsBySchoolId",
   async (schoolId) => {
     const response = await axios.get(
-      `${baseURL}5000/transactions/school_id/${schoolId}`
+      `${baseURL}/transactions/school_id/${schoolId}`
     );
     console.log("Transaction by School ID Response: ", response.data);
     return { results: response.data };
@@ -45,7 +45,7 @@ export const updateTransactionStatus = createAsyncThunk(
   async (transactionData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "${baseURL}/transactions/webhook/status-update",
+        `${baseURL}/transactions/webhook/status-update`,
         {
           order_info: transactionData,
         }
