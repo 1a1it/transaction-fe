@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const baseURL = "https://school-transaction-api.onrender.com"
+
 // Thunk to fetch transactions by page
 export const fetchTransactions = createAsyncThunk(
   "transactions/fetchTransactions",
   async (pageNumber = 1) => {
     const response = await axios.get(
-      `http://localhost:5000/transactions?page=${pageNumber}`
+      `${baseURL}/transactions?page=${pageNumber}`
     );
     console.log("All Transaction Response: ", response.data);
     return response.data;
@@ -18,7 +20,7 @@ export const fetchTransactionsBySchoolId = createAsyncThunk(
   "transactions/fetchTransactionsBySchoolId",
   async (schoolId) => {
     const response = await axios.get(
-      `http://localhost:5000/transactions/school_id/${schoolId}`
+      `${baseURL}5000/transactions/school_id/${schoolId}`
     );
     console.log("Transaction by School ID Response: ", response.data);
     return { results: response.data };
@@ -30,7 +32,7 @@ export const fetchTransactionByCollectId = createAsyncThunk(
   "transactions/fetchTransactionByCollectId",
   async (collectId) => {
     const response = await axios.get(
-      `http://localhost:5000/transactions/collect/${collectId}`
+      `${baseURL}/transactions/collect/${collectId}`
     );
     console.log("Transaction by Collect ID Response: ", response.data);
     return response.data;
@@ -43,7 +45,7 @@ export const updateTransactionStatus = createAsyncThunk(
   async (transactionData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/transactions/webhook/status-update",
+        "${baseURL}/transactions/webhook/status-update",
         {
           order_info: transactionData,
         }
