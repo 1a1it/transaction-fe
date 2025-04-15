@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const baseURL = "https://school-transaction-api.onrender.com"
+
 // Thunk to handle login
 export const login = createAsyncThunk(
   "auth/login",
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://localhost:5000/auth/login", credentials);
+      const response = await axios.post("${baseURL}/auth/login", credentials);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Login failed");
@@ -19,7 +21,7 @@ export const register = createAsyncThunk(
   "auth/register",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://localhost:5000/auth/register", userData);
+      const response = await axios.post("${baseURL}/auth/register", userData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Registration failed");
